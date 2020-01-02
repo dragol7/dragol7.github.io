@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>pera-trta - v1.0.4</title>
+	<title>pera-trta - v1.0.11</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">pera-trta - v1.0.4</a>
+					<a href="index.html" class="title">pera-trta - v1.0.11</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> pera-trta - v1.0.4</h1>
+			<h1> pera-trta - v1.0.11</h1>
 		</div>
 	</div>
 </header>
@@ -67,9 +67,25 @@
 				<a href="#pera-trta" id="pera-trta" style="color: inherit; text-decoration: none;">
 					<h2>PERA-TRTA</h2>
 				</a>
-				<a href="#simple-modelcollection-library" id="simple-modelcollection-library" style="color: inherit; text-decoration: none;">
-					<h4>Simple model/collection library</h4>
+				<a href="#simple-modelcollection-package" id="simple-modelcollection-package" style="color: inherit; text-decoration: none;">
+					<h4>Simple model/collection package</h4>
 				</a>
+				<p>PERA-TRTA is a simple package that provides basic functionalities for
+				your models and collections.</p>
+				<p>All you gonna need to do is to extend your custom models and collections
+				with <code>Model</code> and <code>Collection</code>, and you ready to go.</p>
+				<p>Some of the functionalities that package provide are:</p>
+				<ul>
+					<li>both <code>Model</code> and <code>Collection</code> classes are heavily based on Typescript generics so IntelliSense support is given for using any of the methods implemented, see the images: <a href="https://www.dropbox.com/s/2sx2r1x59e605ze/peratrta1.png?dl=0">img1</a> <a href="https://www.dropbox.com/s/97jxftm7dnbvd01/peratrta2.png?dl=0">img2</a> <a href="https://www.dropbox.com/s/duzg1fn1oax0e07/peratrta3.png?dl=0">img3</a></li>
+					<li>get model property by key</li>
+					<li>update some properties of the model</li>
+					<li>update only one model property</li>
+					<li>store models in the collection</li>
+					<li>sort collection items</li>
+					<li>find particular item/items</li>
+					<li>map collection items
+					...</li>
+				</ul>
 				<p>Usage example:</p>
 				<p><strong>category-props.ts</strong></p>
 				<pre><code><span class="hljs-builtin-name">export</span><span class="hljs-built_in"> interface </span>ICategoryProps {
@@ -88,25 +104,40 @@ export <span class="hljs-class"><span class="hljs-keyword">class</span> <span cl
 
 export <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CategoryCollection</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Collection&lt;CategoryModel</span>, <span class="hljs-title">ICategoryProps&gt;</span> </span>{}
 </code></pre><p><strong>index.ts</strong></p>
-				<pre><code><span class="hljs-title">import</span> { CategoryCollection } from <span class="hljs-string">'./category-collection'</span>;
-<span class="hljs-title">import</span> { CategoryModel } from <span class="hljs-string">'./category-model'</span>;
+				<pre><code>const cc = <span class="hljs-keyword">new</span> <span class="hljs-constructor">CategoryCollection()</span>;
+const c1 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Category({ <span class="hljs-params">id</span>: 1, <span class="hljs-params">name</span>: '<span class="hljs-params">pera</span>' })</span>;
+const c2 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Category({ <span class="hljs-params">id</span>: 2, <span class="hljs-params">name</span>: '<span class="hljs-params">trta</span>' })</span>;
+const c3 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Category({ <span class="hljs-params">id</span>: 3, <span class="hljs-params">name</span>: '<span class="hljs-params">pera</span>' })</span>;
 
-<span class="hljs-keyword">const</span> c1 = <span class="hljs-keyword">new</span> CategoryModel({ <span class="hljs-attribute">id:</span><span class="hljs-string"> 1, name</span>: <span class="hljs-string">'pera'</span> });
-<span class="hljs-keyword">const</span> c2 = <span class="hljs-keyword">new</span> CategoryModel({ <span class="hljs-attribute">id:</span><span class="hljs-string"> 2, name</span>: <span class="hljs-string">'trta'</span> });
-<span class="hljs-keyword">const</span> c3 = <span class="hljs-keyword">new</span> CategoryModel({ <span class="hljs-attribute">id:</span><span class="hljs-string"> 3, name</span>: <span class="hljs-string">'pera'</span> });
-<span class="hljs-keyword">const</span> cc = <span class="hljs-keyword">new</span> CategoryCollection();
-
+<span class="hljs-comment">// add to collection</span>
 cc.add(c1);
-cc.add([ c2, c3 ]);
-<span class="hljs-built_in">console</span>.log(cc.getAll());
+cc.add(<span class="hljs-literal">[ <span class="hljs-identifier">c2</span>, <span class="hljs-identifier">c3</span> ]</span>);
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'sort: '</span>, cc.sortBy(<span class="hljs-string">'id'</span>, <span class="hljs-string">'desc'</span>));
+<span class="hljs-comment">// get all items from collection</span>
+console.log(cc.get<span class="hljs-constructor">All()</span>);
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'find: '</span>, cc.findByKeyValue(<span class="hljs-string">'id'</span>, <span class="hljs-number">1</span>));
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'find: '</span>, cc.findByKeyValue(<span class="hljs-string">'name'</span>, <span class="hljs-string">'trta'</span>));
+<span class="hljs-comment">// get items count</span>
+console.log(cc.getCount);
 
-cc.removeAllByKeyValue(<span class="hljs-string">'name'</span>, <span class="hljs-string">'trta'</span>);
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'removeAllByKeyValue: '</span>, cc.getAll());
+<span class="hljs-comment">// map all collection items</span>
+cc.map((el: Category) =&gt; {
+    return el.set<span class="hljs-constructor">ByKey('<span class="hljs-params">name</span>', <span class="hljs-params">el</span>.<span class="hljs-params">get</span>('<span class="hljs-params">name</span>')</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">UpperCase()</span>);
+});
+console.log(cc.get<span class="hljs-constructor">All()</span>);
+
+<span class="hljs-comment">// sort</span>
+cc.sort<span class="hljs-constructor">By('<span class="hljs-params">id</span>', '<span class="hljs-params">desc</span>')</span>;
+console.log(cc.get<span class="hljs-constructor">All()</span>);
+
+<span class="hljs-comment">// find</span>
+console.log(cc.find<span class="hljs-constructor">ByKeyValue('<span class="hljs-params">name</span>', 'PERA')</span>);
+
+<span class="hljs-comment">// Remove - removes only first occurrence</span>
+cc.remove(c2, 'id');
+console.log(cc.get<span class="hljs-constructor">All()</span>);
+
+cc.remove<span class="hljs-constructor">AllByKeyValue('<span class="hljs-params">name</span>', 'PERA')</span>;
+console.log(cc.get<span class="hljs-constructor">All()</span>);
 </code></pre>
 			</div>
 		</div>
@@ -121,6 +152,9 @@ cc.removeAllByKeyValue(<span class="hljs-string">'name'</span>, <span class="hlj
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_model_.html">&quot;model&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sort_order_.html">&quot;sort-<wbr>order&quot;</a>
 					</li>
 				</ul>
 			</nav>
