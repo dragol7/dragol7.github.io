@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>pera-trta - v1.0.12</title>
+	<title>pera-trta - v1.0.14</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">pera-trta - v1.0.12</a>
+					<a href="index.html" class="title">pera-trta - v1.0.14</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> pera-trta - v1.0.12</h1>
+			<h1> pera-trta - v1.0.14</h1>
 		</div>
 	</div>
 </header>
@@ -77,6 +77,7 @@
 				<p>Some of the functionalities that package provide are:</p>
 				<ul>
 					<li>both <code>Model</code> and <code>Collection</code> classes are heavily based on Typescript generics so IntelliSense support is given for using any of the methods implemented, see the images: <a href="https://www.dropbox.com/s/2sx2r1x59e605ze/peratrta1.png?dl=0">img1</a> <a href="https://www.dropbox.com/s/97jxftm7dnbvd01/peratrta2.png?dl=0">img2</a> <a href="https://www.dropbox.com/s/duzg1fn1oax0e07/peratrta3.png?dl=0">img3</a></li>
+					<li>CLI support</li>
 					<li>get model property by key</li>
 					<li>update some properties of the model</li>
 					<li>update only one model property</li>
@@ -86,7 +87,16 @@
 					<li>map collection items
 					...</li>
 				</ul>
-				<p>Usage example:</p>
+				<p>####CLI support:</p>
+				<p>Instead of manually creating all necessary files, you can use CLI command <code>pt</code>.</p>
+				<pre><code><span class="hljs-keyword">pt</span> -<span class="hljs-keyword">a</span> Person
+// <span class="hljs-keyword">pt</span> --<span class="hljs-keyword">all</span> Person will work 
+// <span class="hljs-keyword">pt</span> --<span class="hljs-keyword">all</span>=Person will work <span class="hljs-keyword">as</span> well</code></pre><p>Creates person model, interface and collection files (by appropriate template), each file has suffix -model, -interface,
+				-collection respectively.</p>
+				<pre><code><span class="hljs-comment">pt</span> <span class="hljs-literal">-</span><span class="hljs-comment">i</span> <span class="hljs-comment">IPerson</span> <span class="hljs-literal">-</span><span class="hljs-comment">m</span> <span class="hljs-comment">Person</span> <span class="hljs-literal">-</span><span class="hljs-comment">c</span> <span class="hljs-comment">PersonCollection</span>
+<span class="hljs-comment">pt</span> --<span class="hljs-comment">interface</span> <span class="hljs-comment">IPerson</span> --<span class="hljs-comment">model</span> <span class="hljs-comment">Person</span> --<span class="hljs-comment">collection</span> <span class="hljs-comment">PersonCollection</span> <span class="hljs-comment">will</span> <span class="hljs-comment">work</span>
+<span class="hljs-comment">pt</span> --<span class="hljs-comment">interface=IPerson</span> --<span class="hljs-comment">model=Person</span> --<span class="hljs-comment">collection=PersonCollection</span> <span class="hljs-comment">will</span> <span class="hljs-comment">work</span> <span class="hljs-comment">as</span> <span class="hljs-comment">well</span></code></pre><p>Creates IPerson, Person and PersonCollection files.</p>
+				<p>####Usage example:</p>
 				<p><strong>category-props.ts</strong></p>
 				<pre><code><span class="hljs-builtin-name">export</span><span class="hljs-built_in"> interface </span>ICategoryProps {
     id: number;
