@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>pera-trta - v1.0.11</title>
+	<title>pera-trta - v1.0.12</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">pera-trta - v1.0.11</a>
+					<a href="index.html" class="title">pera-trta - v1.0.12</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> pera-trta - v1.0.11</h1>
+			<h1> pera-trta - v1.0.12</h1>
 		</div>
 	</div>
 </header>
@@ -86,6 +86,7 @@
 					<li>map collection items
 					...</li>
 				</ul>
+				<p><a href="https://dragol7.github.io">Here</a> is the link for documentation pages.</p>
 				<p>Usage example:</p>
 				<p><strong>category-props.ts</strong></p>
 				<pre><code><span class="hljs-builtin-name">export</span><span class="hljs-built_in"> interface </span>ICategoryProps {
@@ -104,40 +105,43 @@ export <span class="hljs-class"><span class="hljs-keyword">class</span> <span cl
 
 export <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CategoryCollection</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Collection&lt;CategoryModel</span>, <span class="hljs-title">ICategoryProps&gt;</span> </span>{}
 </code></pre><p><strong>index.ts</strong></p>
-				<pre><code>const cc = <span class="hljs-keyword">new</span> <span class="hljs-constructor">CategoryCollection()</span>;
-const c1 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Category({ <span class="hljs-params">id</span>: 1, <span class="hljs-params">name</span>: '<span class="hljs-params">pera</span>' })</span>;
-const c2 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Category({ <span class="hljs-params">id</span>: 2, <span class="hljs-params">name</span>: '<span class="hljs-params">trta</span>' })</span>;
-const c3 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Category({ <span class="hljs-params">id</span>: 3, <span class="hljs-params">name</span>: '<span class="hljs-params">pera</span>' })</span>;
+				<pre><code><span class="hljs-keyword">import</span> { CategoryModel } <span class="hljs-keyword">from</span> <span class="hljs-string">'./category-model'</span>;
+<span class="hljs-keyword">import</span> { CategoryCollection } <span class="hljs-keyword">from</span> <span class="hljs-string">'./category-collection'</span>;
 
-<span class="hljs-comment">// add to collection</span>
-cc.add(c1);
-cc.add(<span class="hljs-literal">[ <span class="hljs-identifier">c2</span>, <span class="hljs-identifier">c3</span> ]</span>);
+const cc = <span class="hljs-built_in">new</span> CategoryCollection();
+const c1 = <span class="hljs-built_in">new</span> CategoryModel({ id: <span class="hljs-number">1</span>, <span class="hljs-type">name</span>: <span class="hljs-string">'pera'</span> });
+const c2 = <span class="hljs-built_in">new</span> CategoryModel({ id: <span class="hljs-number">2</span>, <span class="hljs-type">name</span>: <span class="hljs-string">'trta'</span> });
+const c3 = <span class="hljs-built_in">new</span> CategoryModel({ id: <span class="hljs-number">3</span>, <span class="hljs-type">name</span>: <span class="hljs-string">'pera'</span> });
 
-<span class="hljs-comment">// get all items from collection</span>
-console.log(cc.get<span class="hljs-constructor">All()</span>);
+// <span class="hljs-keyword">add</span> <span class="hljs-keyword">to</span> collection
+cc.<span class="hljs-keyword">add</span>(c1);
+cc.<span class="hljs-keyword">add</span>([ c2, c3 ]);
 
-<span class="hljs-comment">// get items count</span>
+// <span class="hljs-keyword">get</span> <span class="hljs-keyword">all</span> items <span class="hljs-keyword">from</span> collection
+console.log(cc.getAll());
+
+// <span class="hljs-keyword">get</span> items count
 console.log(cc.getCount);
 
-<span class="hljs-comment">// map all collection items</span>
-cc.map((el: Category) =&gt; {
-    return el.set<span class="hljs-constructor">ByKey('<span class="hljs-params">name</span>', <span class="hljs-params">el</span>.<span class="hljs-params">get</span>('<span class="hljs-params">name</span>')</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">UpperCase()</span>);
+// map <span class="hljs-keyword">all</span> collection items
+cc.map((el: CategoryModel) =&gt; {
+    <span class="hljs-keyword">return</span> el.setByKey(<span class="hljs-string">'name'</span>, el.<span class="hljs-keyword">get</span>(<span class="hljs-string">'name'</span>).toUpperCase());
 });
-console.log(cc.get<span class="hljs-constructor">All()</span>);
+console.log(cc.getAll());
 
-<span class="hljs-comment">// sort</span>
-cc.sort<span class="hljs-constructor">By('<span class="hljs-params">id</span>', '<span class="hljs-params">desc</span>')</span>;
-console.log(cc.get<span class="hljs-constructor">All()</span>);
+// sort
+cc.sortBy(<span class="hljs-string">'id'</span>, <span class="hljs-string">'desc'</span>);
+console.log(cc.getAll());
 
-<span class="hljs-comment">// find</span>
-console.log(cc.find<span class="hljs-constructor">ByKeyValue('<span class="hljs-params">name</span>', 'PERA')</span>);
+// find
+console.log(cc.findByKeyValue(<span class="hljs-string">'name'</span>, <span class="hljs-string">'PERA'</span>));
 
-<span class="hljs-comment">// Remove - removes only first occurrence</span>
-cc.remove(c2, 'id');
-console.log(cc.get<span class="hljs-constructor">All()</span>);
+// Remove - removes <span class="hljs-keyword">only</span> first occurrence
+cc.remove(c2, <span class="hljs-string">'id'</span>);
+console.log(cc.getAll());
 
-cc.remove<span class="hljs-constructor">AllByKeyValue('<span class="hljs-params">name</span>', 'PERA')</span>;
-console.log(cc.get<span class="hljs-constructor">All()</span>);
+cc.removeAllByKeyValue(<span class="hljs-string">'name'</span>, <span class="hljs-string">'PERA'</span>);
+console.log(cc.getAll());
 </code></pre>
 			</div>
 		</div>
